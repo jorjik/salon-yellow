@@ -7,7 +7,7 @@ declare(strict_types=1);
 return [
     'site' => [
         /** Публичный URL папки сайта с https, со слэшем в конце */
-        'url' => 'https://example.com/salon/',
+        'url' => 'http://d12rszpvzfxptckzr22kbwge.157.173.111.175.sslip.io/',
         'title' => 'VELVET — Салон красоты',
         'description' => 'Салон красоты VELVET: стрижки, окрашивание, маникюр, уход и макияж. Запишитесь онлайн со скидкой 15% на первый визит.',
         'name_short' => 'VELVET',
@@ -27,7 +27,7 @@ return [
     ],
 
     /** Абсолютный URL картинки 1200×630 для соцсетей */
-    'og_image' => 'https://placehold.co/1200x630/d95f8a/ffffff/png?text=VELVET',
+    'og_image' => 'https://placehold.co/1200x630/ffb300/ffffff/png?text=VELVET',
 
     'salon' => [
         'schema_description' => 'Салон красоты: стрижки, окрашивание, маникюр, уход за лицом и макияж.',
