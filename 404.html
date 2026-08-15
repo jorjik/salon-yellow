@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Страница не найдена — 404</title>
+  <style>
+    :root {
+      --bg: #fff9f9;
+      --text: #1f1a1d;
+      --muted: #6f646a;
+      --brand: #d95f8a;
+      --brand-dark: #b7476f;
+      --line: #f1dde5;
+      --shadow-sm: 0 4px 18px rgba(177, 88, 126, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 120% 70% at 100% -15%, rgba(255, 210, 228, 0.42) 0%, transparent 52%),
+        radial-gradient(ellipse 90% 55% at 0% 100%, rgba(255, 236, 244, 0.55) 0%, transparent 48%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .card {
+      width: min(100%, 420px);
+      text-align: center;
+      padding: 40px 28px 36px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .code {
+      font-size: clamp(3rem, 10vw, 4rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: #ad3f67;
+      line-height: 1;
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+    p {
+      color: var(--muted);
+      margin: 0 0 26px;
+      font-size: 0.98rem;
+    }
+    .btn {
+      display: inline-block;
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(165deg, #e06d95 0%, var(--brand) 45%, var(--brand-dark) 100%);
+      box-shadow: 0 10px 24px rgba(217, 95, 138, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(183, 71, 111, 0.38);
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 3px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <p class="code" aria-hidden="true">404</p>
+    <h1>Такой страницы нет</h1>
+    <p>Возможно, ссылка устарела или адрес набран с ошибкой. Вернитесь на главную салона.</p>
+    <a class="btn" href="index.php">На главную</a>
+  </main>
+</body>
+</html>

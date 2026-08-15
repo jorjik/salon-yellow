@@ -1,0 +1,7 @@
+.git
+.gitignore
+.cursor
+*.md
+make_yellow.php
+.env
+.env.*

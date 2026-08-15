@@ -1,0 +1,4 @@
+DirectoryIndex index.php index.html
+
+# Кастомная 404 только внутри /salon/ (путь от корня сайта — при DocumentRoot = родитель salon)
+ErrorDocument 404 404.html
