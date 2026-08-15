@@ -1,7 +1,22 @@
 <?php
 declare(strict_types=1);
 
-$config = require __DIR__ . '/config.php';
+function load_json(string $filename): array
+{
+  $path = __DIR__ . '/data/' . $filename;
+  if (!file_exists($path))
+    return [];
+  $data = json_decode(file_get_contents($path), true);
+  return is_array($data) ? $data : [];
+}
+
+$config = load_json('settings.json');
+if (empty($config)) {
+  // Запасной вариант — если data/settings.json ещё нет
+  $config = require __DIR__ . '/config.php';
+}
+$services = load_json('services.json');
+$reviews = load_json('reviews.json');
 
 function h(string $s): string
 {
@@ -1037,12 +1052,9 @@ if ($siteJson === false) {
     <section class="hero">
       <div class="container hero-grid">
         <div class="reveal">
-          <span class="badge">Скидка 15% на первый визит</span>
-          <h1>Салон красоты, где вы выглядите и чувствуете себя на все 100%</h1>
-          <p>
-            Премиальный сервис, опытные мастера и индивидуальный подход.
-            Стрижки, окрашивание, маникюр, уход за лицом и макияж в одном месте.
-          </p>
+          <span class="badge"><?php echo h($config['hero']['badge']); ?></span>
+          <h1><?php echo $config['hero']['title']; // С тегами em ?></h1>
+          <p><?php echo h($config['hero']['description']); ?></p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#contacts" data-book-online>Записаться онлайн</a>
             <a class="btn btn-ghost" href="#prices">Смотреть прайс</a>
@@ -1054,12 +1066,11 @@ if ($siteJson === false) {
           </div>
         </div>
         <aside class="hero-card reveal reveal-delay-2">
-          <h3>Почему выбирают нас</h3>
+          <h3><?php echo h($config['hero']['benefits_title']); ?></h3>
           <ul class="hero-list">
-            <li>Мастера с опытом от 5 лет и регулярным обучением.</li>
-            <li>Профессиональная косметика и стерильные инструменты.</li>
-            <li>Гарантия результата и рекомендации по домашнему уходу.</li>
-            <li>Уютная атмосфера и бесплатный welcome-кофе.</li>
+            <?php foreach ($config['hero']['benefits'] as $benefit): ?>
+              <li><?php echo h($benefit); ?></li>
+            <?php endforeach; ?>
           </ul>
         </aside>
       </div>
@@ -1071,41 +1082,30 @@ if ($siteJson === false) {
         <p class="section-sub reveal reveal-delay-1">Подберем образ под ваш стиль, график и бюджет. Ниже — демо-примеры
           услуг для лендинга.</p>
         <div class="cards">
-          <article class="card reveal">
-            <h4>Женская стрижка</h4>
-            <p>Консультация, стрижка, укладка и рекомендации по уходу.</p>
-            <span class="price">от 8 500 ₸</span>
-          </article>
-          <article class="card reveal">
-            <h4>Окрашивание AirTouch</h4>
-            <p>Мягкие переходы цвета и бережный уход в процессе.</p>
-            <span class="price">от 24 000 ₸</span>
-          </article>
-          <article class="card reveal">
-            <h4>Маникюр + гель-лак</h4>
-            <p>Аппаратный маникюр, покрытие и укрепление ногтей.</p>
-            <span class="price">от 9 900 ₸</span>
-          </article>
-          <article class="card reveal">
-            <h4>Вечерний макияж</h4>
-            <p>Стойкий образ для мероприятия, съемки или свадьбы.</p>
-            <span class="price">от 12 000 ₸</span>
-          </article>
+          <?php foreach ($services as $svc): ?>
+            <article class="card reveal">
+              <h4><?php echo h($svc['title']); ?></h4>
+              <p><?php echo h($svc['description']); ?></p>
+              <span class="price"><?php echo h($svc['price']); ?></span>
+            </article>
+          <?php endforeach; ?>
         </div>
       </div>
     </section>
 
-    <section id="prices">
-      <div class="container">
-        <div class="offer reveal">
-          <div>
-            <h3>Весеннее предложение</h3>
-            <p>Комплекс «Стрижка + Уход + Укладка» всего за 14 900 ₸ вместо 18 500 ₸. Действует до 30 августа.</p>
+    <?php if (!empty($config['offer']['show'])): ?>
+      <section id="prices">
+        <div class="container">
+          <div class="offer reveal">
+            <div>
+              <h3><?php echo h($config['offer']['title'] ?? ''); ?></h3>
+              <p><?php echo h($config['offer']['description'] ?? ''); ?></p>
+            </div>
+            <a class="btn btn-primary" href="#contacts" data-book-online>Забронировать время</a>
           </div>
-          <a class="btn btn-primary" href="#contacts" data-book-online>Забронировать время</a>
         </div>
-      </div>
-    </section>
+      </section>
+    <?php endif; ?>
 
     <section id="reviews" class="reviews">
       <div class="container">
@@ -1122,31 +1122,16 @@ if ($siteJson === false) {
             rel="noopener">Открыть в Google Maps</a>
         </div>
         <div class="review-grid">
-          <article class="review reveal">
-            <div class="review-top">
-              <span class="review-name">Алина К.</span>
-              <span class="stars">★★★★★</span>
-            </div>
-            <p class="review-text">Лучшее окрашивание за последний год. Мастер услышала все пожелания и сделала даже
-              лучше.</p>
-            <small>2 недели назад</small>
-          </article>
-          <article class="review reveal">
-            <div class="review-top">
-              <span class="review-name">Мадина Р.</span>
-              <span class="stars">★★★★★</span>
-            </div>
-            <p class="review-text">Очень аккуратный маникюр, стерильно и быстро. Атмосфера приятная, сервис топ.</p>
-            <small>1 месяц назад</small>
-          </article>
-          <article class="review reveal">
-            <div class="review-top">
-              <span class="review-name">Екатерина П.</span>
-              <span class="stars">★★★★★</span>
-            </div>
-            <p class="review-text">Сделали образ на свадьбу: макияж и укладка продержались до ночи. Спасибо команде!</p>
-            <small>3 недели назад</small>
-          </article>
+          <?php foreach ($reviews as $rev): ?>
+            <article class="review reveal">
+              <div class="review-top">
+                <span class="review-name"><?php echo h($rev['name']); ?></span>
+                <span class="stars"><?php echo h($rev['stars']); ?></span>
+              </div>
+              <p class="review-text"><?php echo h($rev['text']); ?></p>
+              <small><?php echo h($rev['date']); ?></small>
+            </article>
+          <?php endforeach; ?>
         </div>
       </div>
     </section>
