@@ -7,7 +7,7 @@ declare(strict_types=1);
 return [
     'site' => [
         /** Публичный URL папки сайта с https, со слэшем в конце */
-        'url' => 'http://d12rszpvzfxptckzr22kbwge.157.173.111.175.sslip.io/',
+        'url' => 'https://lnk.ua/upvGey5Av',
         'title' => 'VELVET — Салон красоты',
         'description' => 'Салон красоты VELVET: стрижки, окрашивание, маникюр, уход и макияж. Запишитесь онлайн со скидкой 15% на первый визит.',
         'name_short' => 'VELVET',
